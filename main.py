@@ -42,7 +42,7 @@ def picture_extension(url):
     path = urlparse(url).path
     filename = os.path.basename(path)
     name, extension = os.path.splitext(filename)
-    return print(name, extension)
+    return name, extension
 
 
 def nasa():
@@ -68,7 +68,20 @@ def nasa():
         print("Ошибка при декодировании JSON.")
         return
 
-    return print(response.json())
+    image_urls = [i["url"] for i in response.json()]
+
+    for i, image_url in enumerate(image_urls, start=1):
+        name, extension = picture_extension(image_url)
+        file_name = f"nasa_{i}.{extension}"
+        file_path = os.path.join(directory, file_name)
+        try:
+            response = requests.get(image_url)
+            response.raise_for_status()
+        except requests.exceptions.RequestException as error:
+            print(f"Ошибка при загрузке изображения {image_url}: {error}")
+            return
+        with open(file_path, "wb") as file:
+            file.write(response.content)
 
 
 def main():

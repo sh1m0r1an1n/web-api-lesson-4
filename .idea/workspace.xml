@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="420f319a-b689-4f86-abe2-183f9f4642b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/spacex_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/spacex_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/spacex_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/spacex_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/spacex_5.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1738315490213</updated>
       <workItem from="1738315491242" duration="4112000" />
-      <workItem from="1738319657328" duration="20801000" />
+      <workItem from="1738319657328" duration="20968000" />
     </task>
     <servers />
   </component>
@@ -78,7 +82,7 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/web_api_lesson_4$fetch_spacex_last_launch.coverage" NAME="fetch_spacex_last_launch Coverage Results" MODIFIED="1738337752310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/web_api_lesson_4$fetch_spacex_last_launch.coverage" NAME="fetch_spacex_last_launch Coverage Results" MODIFIED="1738341434088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/web_api_lesson_4$nasa.coverage" NAME="nasa Coverage Results" MODIFIED="1738340634625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/web_api_lesson_4$main.coverage" NAME="main Coverage Results" MODIFIED="1738333870227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/web_api_lesson_4$epic.coverage" NAME="epic Coverage Results" MODIFIED="1738338557193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

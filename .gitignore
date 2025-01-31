@@ -1,5 +1,8 @@
 ### main template
 .idea/
+epic/
+nasa/
+spacex/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

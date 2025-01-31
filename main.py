@@ -7,7 +7,7 @@ def download_picture(url, file_path):
         response = requests.get(url)
         response.raise_for_status()
     except requests.exceptions.RequestException as error:
-        print(f"Ошибка при загрузке изображения: {error}")
+        print(f"Ошибка при загрузке изображения {url}: {error}")
         return
 
     with open(file_path, "wb") as file:
@@ -16,12 +16,29 @@ def download_picture(url, file_path):
 
 def main():
     directory = "images"
-    file_name = "hubble.jpeg"
-    file_path = os.path.join(directory, file_name)
-
     os.makedirs(directory, exist_ok=True)
-    url = "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg"
-    download_picture(url, file_path)
+    url = "https://api.spacexdata.com/v5/launches/5eb87d47ffd86e000604b38a"
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as error:
+        print(f"Ошибка при получении данных: {error}")
+        return
+    except ValueError:
+        print("Ошибка при декодировании JSON.")
+        return
+
+    image_urls = response.json()["links"]["flickr"]["original"]
+
+    if not image_urls:
+        print("Изображения не найдены.")
+        return
+
+    for i, image_url in enumerate(image_urls, start=1):
+        file_name = f"spacex_{i}.jpg"
+        file_path = os.path.join(directory, file_name)
+        download_picture(image_url, file_path)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,10 @@ def main():
     bot.send_message(text="Hi John!", chat_id=chat_id)
 
     chat_id = "@Galaxy_Gallery_Url"
-    bot.send_message(chat_id=chat_id, text="Hello.")
+    # bot.send_message(chat_id=chat_id, text="Hello.")
+    file_path = os.path.join("spacex", "spacex_1.jpg")
+    with open(file_path, "rb") as photo:
+        bot.send_photo(chat_id=chat_id, photo=photo)
 
 
 if __name__ == "__main__":

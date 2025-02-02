@@ -1,7 +1,7 @@
 import requests
 
 
-def api_request(url, params=None):
+def send_get_request(url, params=None):
     try:
         response = requests.get(url, params=params)
         response.raise_for_status()

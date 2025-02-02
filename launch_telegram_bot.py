@@ -11,7 +11,7 @@ def launch_telegram_bot():
         description="Программа запускает бота для публикации фото из директорий проекта в телеграм канал."
     )
     parser.add_argument(
-        "--hours", type=int, help="Время задержки между постами, в часах", default=5
+        "--hours", type=int, help="Время задержки между постами, в часах", default=4
     )
     hours = parser.parse_args().hours
 

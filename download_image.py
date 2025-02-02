@@ -1,5 +1,6 @@
 import os
 from urllib.parse import urlparse
+
 from send_get_request import send_get_request
 
 

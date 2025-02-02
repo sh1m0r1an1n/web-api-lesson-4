@@ -1,7 +1,7 @@
 import os
-import json
 from dotenv import load_dotenv
 from datetime import datetime
+
 from send_get_request import send_get_request
 from download_image import download_image
 
@@ -34,11 +34,6 @@ def download_nasa_epic_images():
         image_urls.append(
             f"{base_url}/{year}/{month}/{day}/png/{image_name}.png?api_key={nasa_api}"
         )
-
-    file_name = f"{directory}.json"  # Удалить после теста
-    file_path = os.path.join(directory, file_name)  # Удалить после теста
-    with open(file_path, "w") as file:  # Удалить после теста
-        json.dump(response.json(), file)  # Удалить после теста
 
     download_image(image_urls, directory)
 

@@ -1,8 +1,8 @@
 ### main template
 .idea/
-nasa_epic/
-nasa_apod/
-spacex/
+NASA_EPIC/
+NASA_APOD/
+SpaceX/
 .gitattributes
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,6 +1,6 @@
 import os
-import json
 import argparse
+
 from send_get_request import send_get_request
 from download_image import download_image
 
@@ -19,11 +19,6 @@ def download_spacex_launch_images():
     response = send_get_request(url)
 
     image_urls = response.json()["links"]["flickr"]["original"]
-
-    file_name = f"{directory}.json"  # Удалить после теста
-    file_path = os.path.join(directory, file_name)  # Удалить после теста
-    with open(file_path, "w") as file:  # Удалить после теста
-        json.dump(response.json(), file)  # Удалить после теста
 
     download_image(image_urls, directory)
 

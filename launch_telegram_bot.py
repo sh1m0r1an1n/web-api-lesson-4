@@ -3,7 +3,6 @@ import random
 import time
 import argparse
 from environs import Env
-
 import telegram
 
 
@@ -20,7 +19,7 @@ def launch_telegram_bot():
     env.read_env()
 
     hours = env.int("DELAY_HOURS", default=hours)
-    seconds = hours  # * 60  * 60
+    seconds = hours  * 60  * 60
 
     bot_token = env.str("TG_BOT_API")
     bot = telegram.Bot(bot_token)

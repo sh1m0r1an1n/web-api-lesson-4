@@ -21,7 +21,7 @@ def launch_telegram_bot():
     hours = env.int("DELAY_HOURS", default=hours)
     seconds = hours  * 60  * 60
 
-    bot_token = env.str("TG_BOT_API")
+    bot_token = env.str("TG_BOT_TOKEN")
     bot = telegram.Bot(bot_token)
     channel_id = env.str("TG_CHANNEL_ID")
 

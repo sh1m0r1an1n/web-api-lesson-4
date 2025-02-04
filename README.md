@@ -13,8 +13,8 @@
      DELAY_HOURS=
      ```
    - Заполните значения после знака `=`:
-     - `NASA_API` — ваш API-ключ NASA. Получить его можно на [официальном сайте NASA](https://api.nasa.gov/).
-     - `TG_BOT_API` — токен вашего Telegram-бота. Для его получения создайте бота через [BotFather](https://core.telegram.org/bots#botfather) в Telegram.
+     - `NASA_API` — получить его можно на [официальном сайте NASA](https://api.nasa.gov/).
+     - `TG_BOT_TOKEN` — токен вашего Telegram-бота. Для его получения создайте бота через [BotFather](https://core.telegram.org/bots#botfather) в Telegram.
      - `TG_CHANNEL_ID` — ссылка на ваш канал в формате `@Channel`.
      - `DELAY_HOURS` — задержка между постами в часах.
 

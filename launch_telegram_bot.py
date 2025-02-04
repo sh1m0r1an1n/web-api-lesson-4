@@ -33,15 +33,7 @@ def send_images_without_ending(bot, channel_id, image_paths, seconds):
         random.shuffle(image_paths)
 
 
-def launch_telegram_bot(env):
-    parser = argparse.ArgumentParser(
-        description="Программа запускает бота для публикации фото из директорий проекта в телеграм канал."
-    )
-    parser.add_argument(
-        "--hours", type=int, help="Время задержки между постами, в часах", default=4
-    )
-    hours = parser.parse_args().hours
-
+def launch_telegram_bot(env, hours):
     hours = env.int("DELAY_HOURS", default=hours)
     seconds = hours  * 60  * 60
 
@@ -59,4 +51,12 @@ if __name__ == "__main__":
     env = Env()
     env.read_env()
 
-    launch_telegram_bot(env)
+    parser = argparse.ArgumentParser(
+        description="Программа запускает бота для публикации фото из директорий проекта в телеграм канал."
+    )
+    parser.add_argument(
+        "--hours", type=int, help="Время задержки между постами, в часах", default=4
+    )
+    hours = parser.parse_args().hours
+
+    launch_telegram_bot(env, hours)

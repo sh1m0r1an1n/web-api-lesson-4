@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 
 from send_get_request import send_get_request
-from download_image import download_image
+from download_images import download_images
 
 
 def download_nasa_epic_images():
@@ -35,7 +35,7 @@ def download_nasa_epic_images():
             f"{base_url}/{year}/{month}/{day}/png/{image_name}.png?api_key={nasa_api}"
         )
 
-    download_image(image_urls, directory)
+    download_images(image_urls, directory)
 
 
 if __name__ == "__main__":

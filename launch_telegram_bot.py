@@ -6,7 +6,7 @@ from environs import Env
 import telegram
 
 
-def launch_telegram_bot():
+def launch_telegram_bot(env):
     parser = argparse.ArgumentParser(
         description="Программа запускает бота для публикации фото из директорий проекта в телеграм канал."
     )
@@ -14,9 +14,6 @@ def launch_telegram_bot():
         "--hours", type=int, help="Время задержки между постами, в часах", default=4
     )
     hours = parser.parse_args().hours
-
-    env = Env()
-    env.read_env()
 
     hours = env.int("DELAY_HOURS", default=hours)
     seconds = hours  * 60  * 60
@@ -51,4 +48,7 @@ def launch_telegram_bot():
 
 
 if __name__ == "__main__":
-    launch_telegram_bot()
+    env = Env()
+    env.read_env()
+
+    launch_telegram_bot(env)

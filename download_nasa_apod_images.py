@@ -12,7 +12,7 @@ def download_nasa_apod_images(nasa_api):
     url = "https://api.nasa.gov/planetary/apod"
     params = {
         "api_key": nasa_api,
-        "count": 100,
+        "count": 100
     }
 
     response = send_get_request(url, params)

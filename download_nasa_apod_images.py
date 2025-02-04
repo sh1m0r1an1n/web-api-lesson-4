@@ -17,7 +17,7 @@ def download_nasa_apod_images(nasa_api):
 
     response = send_get_request(url, params)
 
-    image_urls = [i["url"] for i in response.json() if "url" in i]
+    image_urls = [i["url"] for i in response.json() if "url" in i and i["media_type"] == "image"]
 
     download_images(image_urls, directory)
 

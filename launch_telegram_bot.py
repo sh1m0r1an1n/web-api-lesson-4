@@ -6,16 +6,15 @@ from environs import Env
 import telegram
 
 
-def generate_image_paths(directories):
+def generate_image_paths(directory):
     image_paths = []
 
-    for directory in directories:
-        for root, _, files in os.walk(directory):
-            for file in files:
-                if file.lower().endswith(
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.lower().endswith(
                     (".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp")
-                ):
-                    image_paths.append(os.path.join(root, file))
+            ):
+                image_paths.append(os.path.join(root, file))
     return image_paths
 
 
@@ -35,13 +34,12 @@ def filter_files_by_size(image_paths):
     return image_paths
 
 
-def launch_telegram_bot(env, hours, bot_token, channel_id):
+def launch_telegram_bot(env, hours, bot_token, channel_id, directory):
     seconds = hours  * 60  * 60
 
     bot = telegram.Bot(bot_token)
 
-    directories = ["NASA_APOD", "NASA_EPIC", "SpaceX"]
-    image_paths = generate_image_paths(directories)
+    image_paths = generate_image_paths(directory)
     random.shuffle(image_paths)
 
     image_paths = filter_files_by_size(image_paths)
@@ -62,6 +60,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--hours", type=int, help="Время задержки между постами, в часах", default=4
     )
-    hours = parser.parse_args().hours
+    parser.add_argument("--directory", type=str, help="Директория, откуда бот будет брать фото для отправки.",
+                        default="images")
 
-    launch_telegram_bot(env, hours, bot_token, channel_id)
+    hours = parser.parse_args().hours
+    directory = parser.parse_args().directory
+
+    launch_telegram_bot(env, hours, bot_token, channel_id, directory)

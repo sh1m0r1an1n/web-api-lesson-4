@@ -1,4 +1,5 @@
 import os
+import configargparse
 from environs import Env
 from datetime import datetime
 from urllib.parse import urlparse, urlunparse, urlencode
@@ -37,8 +38,7 @@ def send_nasa_epic_get_request(nasa_api):
     return response.json()
 
 
-def download_nasa_epic_images(nasa_api):
-    directory = "images"
+def download_nasa_epic_images(nasa_api, directory):
     os.makedirs(directory, exist_ok=True)
 
     file_name = "nasa_epic"
@@ -50,6 +50,15 @@ def download_nasa_epic_images(nasa_api):
 if __name__ == "__main__":
     env = Env()
     env.read_env()
+
     nasa_api = env.str("NASA_API_TOKEN")
 
-    download_nasa_epic_images(nasa_api)
+    parser = configargparse.ArgumentParser(
+        default_config_file=['config.ini'],
+        description="Передайте необходимые аргументы."
+    )
+    parser.add_argument("--directory", type=str, help="Директория, куда будут скачиваться фотографии.", default="images")
+
+    directory = parser.parse_args().directory
+
+    download_nasa_epic_images(nasa_api, directory)

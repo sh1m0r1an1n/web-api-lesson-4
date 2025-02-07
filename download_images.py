@@ -28,6 +28,3 @@ def download_images(image_urls, directory, file_name):
     for index, image_url in enumerate(image_urls, start=1):
         file_path = generate_file_path(directory, index, image_url, file_name)
         download_single_image(image_url, file_path)
-
-
-

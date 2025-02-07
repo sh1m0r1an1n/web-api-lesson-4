@@ -11,9 +11,9 @@ def get_image_extension(image_url):
     return extension
 
 
-def generate_file_path(directory, index, image_url):
+def generate_file_path(directory, index, image_url, file_name):
     extension = get_image_extension(image_url)
-    file_name = f"{directory}_{index}{extension}"
+    file_name = f"{file_name}_{index}{extension}"
     return os.path.join(directory, file_name)
 
 
@@ -24,9 +24,9 @@ def download_single_image(image_url, file_path):
             file.write(response.content)
 
 
-def download_images(image_urls, directory):
+def download_images(image_urls, directory, file_name):
     for index, image_url in enumerate(image_urls, start=1):
-        file_path = generate_file_path(directory, index, image_url)
+        file_path = generate_file_path(directory, index, image_url, file_name)
         download_single_image(image_url, file_path)
 
 

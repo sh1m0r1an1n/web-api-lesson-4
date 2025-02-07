@@ -1,7 +1,7 @@
 import os
 import random
 import time
-import argparse
+import configargparse
 from environs import Env
 import telegram
 
@@ -29,19 +29,16 @@ def send_images_without_ending(bot, channel_id, image_paths, seconds):
 
 
 def filter_files_by_size(image_paths):
-    MAX_FILE_SIZE_MB = 20
-    MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
-    image_paths = [image_path for image_path in image_paths if os.path.getsize(image_path) < MAX_FILE_SIZE_BYTES]
+    max_file_size_mb = 20
+    max_file_size_bytes = max_file_size_mb * 1024 * 1024
+    image_paths = [image_path for image_path in image_paths if os.path.getsize(image_path) < max_file_size_bytes]
     return image_paths
 
 
-def launch_telegram_bot(env, hours):
-    hours = env.int("DELAY_HOURS", default=hours)
+def launch_telegram_bot(env, hours, bot_token, channel_id):
     seconds = hours  * 60  * 60
 
-    bot_token = env.str("TG_BOT_TOKEN")
     bot = telegram.Bot(bot_token)
-    channel_id = env.str("TG_CHANNEL_ID")
 
     directories = ["NASA_APOD", "NASA_EPIC", "SpaceX"]
     image_paths = generate_image_paths(directories)
@@ -55,7 +52,11 @@ if __name__ == "__main__":
     env = Env()
     env.read_env()
 
-    parser = argparse.ArgumentParser(
+    bot_token = env.str("TG_BOT_TOKEN")
+    channel_id = env.str("TG_CHANNEL_ID")
+
+    parser = configargparse.ArgumentParser(
+        default_config_file=['config.ini'],
         description="Программа запускает бота для публикации фото из директорий проекта в телеграм канал."
     )
     parser.add_argument(
@@ -63,4 +64,4 @@ if __name__ == "__main__":
     )
     hours = parser.parse_args().hours
 
-    launch_telegram_bot(env, hours)
+    launch_telegram_bot(env, hours, bot_token, channel_id)

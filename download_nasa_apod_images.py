@@ -16,12 +16,13 @@ def send_nasa_apod_get_request(nasa_api):
 
 
 def download_nasa_apod_images(nasa_api):
-    directory = "NASA_APOD"
+    directory = "images"
     os.makedirs(directory, exist_ok=True)
 
+    file_name = "nasa_apod"
     response = send_nasa_apod_get_request(nasa_api)
     image_urls = [i["url"] for i in response if "url" in i and i["media_type"] == "image"]
-    download_images(image_urls, directory)
+    download_images(image_urls, directory, file_name)
 
 
 if __name__ == "__main__":

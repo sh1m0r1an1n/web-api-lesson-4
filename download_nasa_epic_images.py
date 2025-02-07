@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv
+from environs import Env
 from datetime import datetime
 from urllib.parse import urlparse, urlunparse, urlencode
 
@@ -38,16 +38,18 @@ def send_nasa_epic_get_request(nasa_api):
 
 
 def download_nasa_epic_images(nasa_api):
-    directory = "NASA_EPIC"
+    directory = "images"
     os.makedirs(directory, exist_ok=True)
 
+    file_name = "nasa_epic"
     data_list = send_nasa_epic_get_request(nasa_api)
     image_urls = generate_image_urls_from_response_nasa_epic(data_list, nasa_api)
     download_images(image_urls, directory)
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    nasa_api = os.environ["NASA_API_TOKEN"]
+    env = Env()
+    env.read_env()
+    nasa_api = env.str("NASA_API_TOKEN")
 
     download_nasa_epic_images(nasa_api)

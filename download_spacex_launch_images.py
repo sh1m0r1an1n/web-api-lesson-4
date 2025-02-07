@@ -1,5 +1,5 @@
 import os
-import argparse
+import configargparse
 
 from send_get_request import send_get_request
 from download_images import download_images
@@ -21,7 +21,8 @@ def download_spacex_launch_images(spacex_launch_id):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
+    parser = configargparse.ArgumentParser(
+        default_config_file=['config.ini'],
         description="Программа скачивает фото запуска SpaceX по его id, по умолчанию крайний запуск."
     )
     parser.add_argument("--id", type=str, help="id запуска SpaceX", default="latest")

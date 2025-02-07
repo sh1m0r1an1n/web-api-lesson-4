@@ -40,7 +40,8 @@ def send_images_without_ending(bot, channel_id, image_paths, seconds):
 def filter_files_by_size(image_paths):
     max_file_size_mb = 20
     max_file_size_bytes = max_file_size_mb * 1024 * 1024
-    image_paths = [image_path for image_path in image_paths if os.path.getsize(image_path) < max_file_size_bytes]
+    image_paths = [image_path for image_path in image_paths
+                   if os.path.getsize(image_path) < max_file_size_bytes]
     return image_paths
 
 
@@ -65,13 +66,17 @@ if __name__ == "__main__":
 
     parser = configargparse.ArgumentParser(
         default_config_file=['config.ini'],
-        description="Программа запускает бота для публикации фото из директорий проекта в телеграм канал."
+        description="Программа запускает бота для публикации фото"
+            "из директорий проекта в телеграм канал."
     )
     parser.add_argument(
-        "--hours", type=int, help="Время задержки между постами, в часах", default=4
+        "--hours", type=int,
+        help="Время задержки между постами, в часах", default=4
     )
-    parser.add_argument("--directory", type=str, help="Директория, откуда бот будет брать фото для отправки.",
-                        default="images")
+    parser.add_argument(
+        "--directory", type=str,
+        help="Директория, откуда бот будет брать фото для отправки.", default="images"
+    )
 
     hours = parser.parse_args().hours
     directory = parser.parse_args().directory

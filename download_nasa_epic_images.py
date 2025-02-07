@@ -19,7 +19,9 @@ def generate_image_urls_from_response_nasa_epic(data_list, nasa_api):
         image_name = data["image"]
 
         dt = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
-        year, month, day = dt.strftime("%Y"), dt.strftime("%m"), dt.strftime("%d")
+        year = dt.strftime("%Y")
+        month = dt.strftime("%m")
+        day = dt.strftime("%d")
 
         url = f"{base_url}/{year}/{month}/{day}/png/{image_name}.png"
 
@@ -27,7 +29,8 @@ def generate_image_urls_from_response_nasa_epic(data_list, nasa_api):
         query_string = urlencode(params)
 
         image_urls.append(
-            urlunparse((parsed_url.scheme, parsed_url.netloc, parsed_url.path, parsed_url.params, query_string, parsed_url.fragment))
+            urlunparse((parsed_url.scheme, parsed_url.netloc, parsed_url.path,
+                        parsed_url.params, query_string, parsed_url.fragment))
         )
     return image_urls
 
@@ -44,7 +47,9 @@ def download_nasa_epic_images(nasa_api, directory):
 
     file_name = "nasa_epic"
     data_list = send_nasa_epic_get_request(nasa_api)
-    image_urls = generate_image_urls_from_response_nasa_epic(data_list, nasa_api)
+    image_urls = generate_image_urls_from_response_nasa_epic(
+        data_list, nasa_api
+    )
     download_images(image_urls, directory)
 
 
@@ -58,7 +63,11 @@ if __name__ == "__main__":
         default_config_file=['config.ini'],
         description="Передайте необходимые аргументы."
     )
-    parser.add_argument("--directory", type=str, help="Директория, куда будут скачиваться фотографии.", default="images")
+    parser.add_argument(
+        "--directory", type=str,
+        help="Директория, куда будут скачиваться фотографии.",
+        default="images"
+    )
 
     directory = parser.parse_args().directory
 

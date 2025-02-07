@@ -1,6 +1,6 @@
 import os
-import configargparse
 import requests
+import configargparse
 
 from send_get_request import send_get_request
 from download_images import download_images

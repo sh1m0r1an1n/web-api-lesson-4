@@ -36,8 +36,17 @@ if __name__ == "__main__":
         default_config_file=['config.ini'],
         description="Передайте необходимые аргументы."
     )
-    parser.add_argument("--directory", type=str, help="Директория, куда будут скачиваться фотографии.", default="images")
-    parser.add_argument("--count", type=int, help="Количество фотографий для скачивания.", default=100)
+    parser.add_argument(
+        "--directory", type=str,
+        help="Директория, куда будут скачиваться фотографии.",
+        default="images"
+    )
+    parser.add_argument(
+        "--count",
+        type=int,
+        help="Количество фотографий для скачивания.",
+        default=100
+    )
 
     directory = parser.parse_args().directory
     count = parser.parse_args().count

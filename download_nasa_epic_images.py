@@ -1,9 +1,9 @@
 import os
+from datetime import datetime
+from urllib.parse import urlparse, urlunparse, urlencode
 import requests
 import configargparse
 from environs import Env
-from datetime import datetime
-from urllib.parse import urlparse, urlunparse, urlencode
 
 from send_get_request import send_get_request
 from download_images import download_images

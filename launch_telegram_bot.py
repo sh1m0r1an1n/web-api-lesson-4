@@ -27,11 +27,11 @@ def send_images_without_ending(bot, channel_id, image_paths, seconds):
                     bot.send_photo(chat_id=channel_id, photo=photo)
             except telegram.error.NetworkError as error:
                 print(f"Ошибка сети при отправке {image_path}: {error}")
-                time.sleep(5)
+                time.sleep(2)
                 continue
             except Exception as error:
                 print(f"Неожиданная ошибка при отправке {image_path}: {error}")
-                time.sleep(5)
+                time.sleep(2)
                 continue
             time.sleep(seconds)
         random.shuffle(image_paths)

@@ -34,8 +34,8 @@ if __name__ == "__main__":
     nasa_api = env.str("NASA_API_TOKEN")
 
     parser = configargparse.ArgumentParser(
-        default_config_file=['config.ini'],
-        description="Передайте необходимые аргументы."
+        description="Передайте необходимые аргументы.",
+        default_config_files=['config.ini']
     )
     parser.add_argument(
         "--directory", type=str,
@@ -49,8 +49,9 @@ if __name__ == "__main__":
         default=100
     )
 
-    directory = parser.parse_args().directory
-    count = parser.parse_args().count
+    args, unknown_args = parser.parse_known_args()
+    directory = args.directory
+    count = args.count
 
     try:
         download_nasa_apod_images(nasa_api, directory, count)

@@ -46,7 +46,7 @@ def filter_files_by_size(image_paths):
 
 
 def launch_telegram_bot(env, hours, bot_token, channel_id, directory):
-    seconds = hours  * 60  * 60
+    seconds = hours * 60 * 60
 
     bot = telegram.Bot(bot_token)
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     channel_id = env.str("TG_CHANNEL_ID")
 
     parser = configargparse.ArgumentParser(
-        default_config_file=['config.ini'],
+        default_config_files=['config.ini'],
         description="Программа запускает бота для публикации фото"
             "из директорий проекта в телеграм канал."
     )
@@ -77,9 +77,9 @@ if __name__ == "__main__":
         "--directory", type=str,
         help="Директория, откуда бот будет брать фото для отправки.", default="images"
     )
-
-    hours = parser.parse_args().hours
-    directory = parser.parse_args().directory
+    args, unknown_args = parser.parse_known_args()
+    hours = args.hours
+    directory = args.directory
 
     try:
         launch_telegram_bot(env, hours, bot_token, channel_id, directory)

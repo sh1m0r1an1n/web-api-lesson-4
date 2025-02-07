@@ -50,7 +50,7 @@ def download_nasa_epic_images(nasa_api, directory):
     image_urls = generate_image_urls_from_response_nasa_epic(
         data_list, nasa_api
     )
-    download_images(image_urls, directory)
+    download_images(image_urls, directory, file_name)
 
 
 if __name__ == "__main__":
@@ -60,16 +60,16 @@ if __name__ == "__main__":
     nasa_api = env.str("NASA_API_TOKEN")
 
     parser = configargparse.ArgumentParser(
-        default_config_file=['config.ini'],
-        description="Передайте необходимые аргументы."
+        description="Передайте необходимые аргументы.",
+        default_config_files=['config.ini']
     )
     parser.add_argument(
         "--directory", type=str,
         help="Директория, куда будут скачиваться фотографии.",
         default="images"
     )
-
-    directory = parser.parse_args().directory
+    args, unknown_args = parser.parse_known_args()
+    directory = args.directory
 
     try:
         download_nasa_epic_images(nasa_api, directory)

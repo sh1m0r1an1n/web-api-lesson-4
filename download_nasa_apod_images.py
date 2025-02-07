@@ -5,20 +5,22 @@ from send_get_request import send_get_request
 from download_images import download_images
 
 
-def download_nasa_apod_images(nasa_api):
-    directory = "NASA_APOD"
-    os.makedirs(directory, exist_ok=True)
-
+def send_nasa_apod_get_request(nasa_api):
     url = "https://api.nasa.gov/planetary/apod"
     params = {
         "api_key": nasa_api,
         "count": 100
     }
-
     response = send_get_request(url, params)
+    return response.json()
 
-    image_urls = [i["url"] for i in response.json() if "url" in i and i["media_type"] == "image"]
 
+def download_nasa_apod_images(nasa_api):
+    directory = "NASA_APOD"
+    os.makedirs(directory, exist_ok=True)
+
+    response = send_nasa_apod_get_request(nasa_api)
+    image_urls = [i["url"] for i in response if "url" in i and i["media_type"] == "image"]
     download_images(image_urls, directory)
 
 

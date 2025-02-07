@@ -6,8 +6,7 @@ from environs import Env
 import telegram
 
 
-def generate_image_paths():
-    directories = ["NASA_APOD", "NASA_EPIC", "SpaceX"]
+def generate_image_paths(directories):
     image_paths = []
 
     for directory in directories:
@@ -21,16 +20,19 @@ def generate_image_paths():
 
 
 def send_images_without_ending(bot, channel_id, image_paths, seconds):
-    MAX_FILE_SIZE_MB = 20
-    MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
-
     while True:
         for image_path in image_paths:
-            if os.path.getsize(image_path) < MAX_FILE_SIZE_BYTES:
-                with open(image_path, "rb") as photo:
-                    bot.send_photo(chat_id=channel_id, photo=photo)
-                    time.sleep(seconds)
+            with open(image_path, "rb") as photo:
+                bot.send_photo(chat_id=channel_id, photo=photo)
+                time.sleep(seconds)
         random.shuffle(image_paths)
+
+
+def filter_files_by_size(image_paths):
+    MAX_FILE_SIZE_MB = 20
+    MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
+    image_paths = [image_path for image_path in image_paths if os.path.getsize(image_path) < MAX_FILE_SIZE_BYTES]
+    return image_paths
 
 
 def launch_telegram_bot(env, hours):
@@ -41,9 +43,11 @@ def launch_telegram_bot(env, hours):
     bot = telegram.Bot(bot_token)
     channel_id = env.str("TG_CHANNEL_ID")
 
-    image_paths = generate_image_paths()
+    directories = ["NASA_APOD", "NASA_EPIC", "SpaceX"]
+    image_paths = generate_image_paths(directories)
     random.shuffle(image_paths)
 
+    image_paths = filter_files_by_size(image_paths)
     send_images_without_ending(bot, channel_id, image_paths, seconds)
 
 

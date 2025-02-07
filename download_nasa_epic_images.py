@@ -7,8 +7,9 @@ from send_get_request import send_get_request
 from download_images import download_images
 
 
-def generate_image_urls_from_response_nasa_epic(data_list, params):
+def generate_image_urls_from_response_nasa_epic(data_list, nasa_api):
     base_url = "https://api.nasa.gov/EPIC/archive/natural"
+    params = {"api_key": nasa_api}
     image_urls = []
 
     for data in data_list:
@@ -29,18 +30,19 @@ def generate_image_urls_from_response_nasa_epic(data_list, params):
     return image_urls
 
 
+def send_nasa_epic_get_request(nasa_api):
+    url = "https://api.nasa.gov/EPIC/api/natural"
+    params = {"api_key": nasa_api}
+    response = send_get_request(url, params)
+    return response.json()
+
+
 def download_nasa_epic_images(nasa_api):
     directory = "NASA_EPIC"
     os.makedirs(directory, exist_ok=True)
 
-    url = "https://api.nasa.gov/EPIC/api/natural"
-    params = {"api_key": nasa_api}
-
-    response = send_get_request(url, params)
-    data_list = response.json()
-
-    image_urls = generate_image_urls_from_response_nasa_epic(data_list, params)
-
+    data_list = send_nasa_epic_get_request(nasa_api)
+    image_urls = generate_image_urls_from_response_nasa_epic(data_list, nasa_api)
     download_images(image_urls, directory)
 
 

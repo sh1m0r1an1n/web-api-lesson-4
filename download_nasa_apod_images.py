@@ -24,6 +24,6 @@ def download_nasa_apod_images(nasa_api):
 
 if __name__ == "__main__":
     load_dotenv()
-    nasa_api = os.environ["NASA_API"]
+    nasa_api = os.environ["NASA_API_TOKEN"]
 
     download_nasa_apod_images(nasa_api)

@@ -1,6 +1,7 @@
 import os
 import random
 import time
+import requests
 import configargparse
 from environs import Env
 import telegram
@@ -21,9 +22,18 @@ def generate_image_paths(directory):
 def send_images_without_ending(bot, channel_id, image_paths, seconds):
     while True:
         for image_path in image_paths:
-            with open(image_path, "rb") as photo:
-                bot.send_photo(chat_id=channel_id, photo=photo)
-                time.sleep(seconds)
+            try:
+                with open(image_path, "rb") as photo:
+                    bot.send_photo(chat_id=channel_id, photo=photo)
+            except telegram.error.NetworkError as error:
+                print(f"Ошибка сети при отправке {image_path}: {error}")
+                time.sleep(5)
+                continue
+            except Exception as error:
+                print(f"Неожиданная ошибка при отправке {image_path}: {error}")
+                time.sleep(5)
+                continue
+            time.sleep(seconds)
         random.shuffle(image_paths)
 
 
@@ -66,4 +76,7 @@ if __name__ == "__main__":
     hours = parser.parse_args().hours
     directory = parser.parse_args().directory
 
-    launch_telegram_bot(env, hours, bot_token, channel_id, directory)
+    try:
+        launch_telegram_bot(env, hours, bot_token, channel_id, directory)
+    except requests.exceptions.RequestException as error:
+        print(f"Ошибка при выполнении запроса: {error}")

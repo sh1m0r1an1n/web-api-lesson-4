@@ -1,5 +1,6 @@
 import os
 import configargparse
+import requests
 
 from send_get_request import send_get_request
 from download_images import download_images
@@ -28,4 +29,7 @@ if __name__ == "__main__":
     parser.add_argument("--id", type=str, help="id запуска SpaceX", default="latest")
     spacex_launch_id = parser.parse_args().id
 
-    download_spacex_launch_images(spacex_launch_id)
+    try:
+        download_spacex_launch_images(spacex_launch_id)
+    except requests.exceptions.RequestException as error:
+        print(f"Ошибка при выполнении запроса: {error}")

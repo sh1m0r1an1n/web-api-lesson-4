@@ -1,4 +1,5 @@
 import os
+import requests
 import configargparse
 from environs import Env
 from datetime import datetime
@@ -61,4 +62,7 @@ if __name__ == "__main__":
 
     directory = parser.parse_args().directory
 
-    download_nasa_epic_images(nasa_api, directory)
+    try:
+        download_nasa_epic_images(nasa_api, directory)
+    except requests.exceptions.RequestException as error:
+        print(f"Ошибка при выполнении запроса: {error}")

@@ -2,13 +2,6 @@ import requests
 
 
 def send_get_request(url, params=None):
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-        return response
-    except requests.exceptions.RequestException as error:
-        print(f"Ошибка при выполнении запроса: {error}")
-        return None
-    except ValueError:
-        print("Ошибка при декодировании JSON.")
-        return None
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response

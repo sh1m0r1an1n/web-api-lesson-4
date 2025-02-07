@@ -13,18 +13,17 @@ def spacex_launch_get_request(spacex_launch_id):
     return image_urls
 
 
-def download_spacex_launch_images(spacex_launch_id, directory):
+def download_spacex_launch_images(directory, image_urls):
     file_name = "SpaceX"
     os.makedirs(directory, exist_ok=True)
 
-    image_urls = spacex_launch_get_request(spacex_launch_id)
     download_images(image_urls, directory, file_name)
 
 
-if __name__ == "__main__":
+def main():
     parser = configargparse.ArgumentParser(
         description="Программа скачивает фото запуска SpaceX по его id,"
-            "по умолчанию крайний запуск.",
+                    "по умолчанию крайний запуск.",
         default_config_files=['config.ini']
     )
     parser.add_argument(
@@ -40,6 +39,11 @@ if __name__ == "__main__":
     directory = args.directory
 
     try:
-        download_spacex_launch_images(spacex_launch_id, directory)
+        image_urls = spacex_launch_get_request(spacex_launch_id)
+        download_spacex_launch_images(directory, image_urls)
     except requests.exceptions.RequestException as error:
         print(f"Ошибка при выполнении запроса: {error}")
+
+
+if __name__ == "__main__":
+    main()

@@ -45,19 +45,17 @@ def filter_files_by_size(image_paths):
     return image_paths
 
 
-def launch_telegram_bot(env, hours, bot_token, channel_id, directory):
+def launch_telegram_bot(env, hours, bot_token, channel_id, image_paths):
     seconds = hours * 60 * 60
 
     bot = telegram.Bot(bot_token)
 
-    image_paths = generate_image_paths(directory)
     random.shuffle(image_paths)
 
-    image_paths = filter_files_by_size(image_paths)
     send_images_without_ending(bot, channel_id, image_paths, seconds)
 
 
-if __name__ == "__main__":
+def main():
     env = Env()
     env.read_env()
 
@@ -67,7 +65,7 @@ if __name__ == "__main__":
     parser = configargparse.ArgumentParser(
         default_config_files=['config.ini'],
         description="Программа запускает бота для публикации фото"
-            "из директорий проекта в телеграм канал."
+                    "из директорий проекта в телеграм канал."
     )
     parser.add_argument(
         "--hours", type=int,
@@ -82,6 +80,12 @@ if __name__ == "__main__":
     directory = args.directory
 
     try:
-        launch_telegram_bot(env, hours, bot_token, channel_id, directory)
+        image_paths = generate_image_paths(directory)
+        image_paths = filter_files_by_size(image_paths)
+        launch_telegram_bot(env, hours, bot_token, channel_id, image_paths)
     except requests.exceptions.RequestException as error:
         print(f"Ошибка при выполнении запроса: {error}")
+
+
+if __name__ == "__main__":
+    main()

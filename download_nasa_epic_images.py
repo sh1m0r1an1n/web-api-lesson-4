@@ -42,18 +42,14 @@ def send_nasa_epic_get_request(nasa_api):
     return response.json()
 
 
-def download_nasa_epic_images(nasa_api, directory):
+def download_nasa_epic_images(directory, image_urls):
     os.makedirs(directory, exist_ok=True)
 
     file_name = "nasa_epic"
-    data_list = send_nasa_epic_get_request(nasa_api)
-    image_urls = generate_image_urls_from_response_nasa_epic(
-        data_list, nasa_api
-    )
     download_images(image_urls, directory, file_name)
 
 
-if __name__ == "__main__":
+def main():
     env = Env()
     env.read_env()
 
@@ -72,6 +68,14 @@ if __name__ == "__main__":
     directory = args.directory
 
     try:
-        download_nasa_epic_images(nasa_api, directory)
+        data_list = send_nasa_epic_get_request(nasa_api)
+        image_urls = generate_image_urls_from_response_nasa_epic(
+            data_list, nasa_api
+        )
+        download_nasa_epic_images(directory, image_urls)
     except requests.exceptions.RequestException as error:
         print(f"Ошибка при выполнении запроса: {error}")
+
+
+if __name__ == "__main__":
+    main()

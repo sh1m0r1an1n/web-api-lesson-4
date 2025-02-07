@@ -17,17 +17,16 @@ def send_nasa_apod_get_request(nasa_api, count):
     return response.json()
 
 
-def download_nasa_apod_images(nasa_api, directory, count):
+def download_nasa_apod_images(directory, response):
     os.makedirs(directory, exist_ok=True)
 
     file_name = "nasa_apod"
-    response = send_nasa_apod_get_request(nasa_api, count)
     image_urls = [i["url"] for i in response
                   if "url" in i and i["media_type"] == "image"]
     download_images(image_urls, directory, file_name)
 
 
-if __name__ == "__main__":
+def main():
     env = Env()
     env.read_env()
 
@@ -54,6 +53,11 @@ if __name__ == "__main__":
     count = args.count
 
     try:
-        download_nasa_apod_images(nasa_api, directory, count)
+        response = send_nasa_apod_get_request(nasa_api, count)
+        download_nasa_apod_images(directory, response)
     except requests.exceptions.RequestException as error:
         print(f"Ошибка при выполнении запроса: {error}")
+
+
+if __name__ == "__main__":
+    main()
